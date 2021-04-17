@@ -1,62 +1,75 @@
-﻿// Grading ID: T6181
-// Program 1A
-// 2/12/20
+﻿// Program 1A
 // CIS 200-01
+// Due: 2/13/2020
+// By: Andrew L. Wright (Students use Grading ID)
+
+// File: LibraryBook.cs
+// This file creates a concrete LibraryBook class that adds
+// an author to the LibraryItem data. 
+// LibraryBook IS-A LibraryItem
+
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
-namespace Prog1A
+namespace LibraryItems
 {
+    [Serializable]
     public class LibraryBook : LibraryItem
     {
-        
-        private string _Author;     // The book's author
-        
+        public const decimal DAILYLATEFEE = 0.25m; // Book's daily late fee
 
-        public LibraryBook(string _title, string _author, string _publisher
-            , string _callNumber, int _copyrightYear, int _loanPeriod):
-            base(_title,_publisher, _callNumber, _copyrightYear, _loanPeriod)
+        private string _author; // The book's author
+
+        // Precondition:  theCopyrightYear >= 0, theLoanPeriod >= 0
+        //                theTitle and theCallNumber must not be null or empty
+        // Postcondition: The library book has been initialized with the specified
+        //                values for title, publisher, copyright year, loan period, 
+        //                call number, and author. The item is not checked out.
+        public LibraryBook(string theTitle, string thePublisher, int theCopyrightYear,
+            int theLoanPeriod, string theCallNumber, string theAuthor) :
+            base(theTitle, thePublisher, theCopyrightYear, theLoanPeriod, theCallNumber)
         {
-            
-            _Author = _author;
-            
+            Author = theAuthor;
         }
+
         public string Author
         {
             // Precondition:  None
             // Postcondition: The author has been returned
             get
             {
-                return _Author;
+                return _author;
             }
 
             // Precondition:  None
             // Postcondition: The author has been set to the specified value
             set
             {
-                if (string.IsNullOrWhiteSpace(value)) // IsNullOrWhiteSpace includes tests for null, empty, or all whitespace
-                    throw new ArgumentOutOfRangeException($"{nameof(Author)}", value,
-                        $"{nameof(Author)} must not be null or empty");
-                else
-                    _Author = value.Trim();
-
+                // Since empty author is OK, just change null to empty string
+                _author = (value == null ? string.Empty : value.Trim());
             }
-
         }
-        //Precondition: none
-        //Postcondition: Outputs the late fee for the movies
-        public override void  CalcLateFee()
+
+        // Precondition:  daysLate >= 0
+        // Postcondition: The fee for returning the item the specified days late
+        //                has been returned
+        public override decimal CalcLateFee(int daysLate)
         {
+            ValidateDaysLate(daysLate);
 
+            return daysLate * DAILYLATEFEE;
         }
-        //Precondition: none
-        //Postcondition: Puts the data in a string
+
+        // Precondition:  None
+        // Postcondition: A string is returned presenting the libary item's data on
+        //                separate lines
         public override string ToString()
         {
             string NL = Environment.NewLine; // NewLine shortcut
 
-            return $"Title:{LibraryItem.BookTitle}
+            return $"{nameof(LibraryBook)}{NL}Author: {Author}{NL}{base.ToString()}";
         }
     }
 }

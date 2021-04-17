@@ -1,72 +1,82 @@
-﻿// Grading ID: T6181
-// Program 1A
-// 2/12/20
+﻿// Program 1A
 // CIS 200-01
+// Due: 2/13/2020
+// By: Andrew L. Wright (Students use Grading ID)
+
+// File: LibraryMediaItem.cs
+// This file creates an abstract LibraryMediaItem class that adds
+// media type and duration.
+// LibraryMediaItem IS-A LibraryItem
+
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
-namespace Prog1A
+namespace LibraryItems
 {
+    [Serializable]
     public abstract class LibraryMediaItem : LibraryItem
     {
-        public string Title;
-        public string Publisher;
-        public new int CopyrightYear;
-        public new int LoanPeriod;
-        public string CallNumber;
-        public double duration;
-        public MediaType medium;
+        public enum MediaType { DVD, BLURAY, VHS, CD, SACD, VINYL }; // Possible media types
 
-        
-        public enum MediaType { DVD, BLURAY, VHS, CD, SACD, VINYL }
-        // Precondition:  none
-        // Postcondition: The media item has been initialized with the following
-        //                7 parameters
-        public LibraryMediaItem(string _title, string _publisher, int _copyrightYear
-            , int _loanPeriod, string _callNumber, double theDuration, MediaType theMedium)
-            :base(_title, _publisher, _callNumber, _copyrightYear, _loanPeriod)
+        private double _duration;    // The item's duration (in minutes)
+        protected MediaType _medium; // The item's medium, will be validated by the derived classes
+
+
+        // Precondition:  theCopyrightYear >= 0, theLoanPeriod >= 0, theDuration >= 0
+        //                theTitle and theCallNumber must not be null or empty
+        // Postcondition: The library media item has been initialized with the specified
+        //                values for title, publisher, copyright year, loan period, 
+        //                call number, and duration. The item is not checked out.
+        public LibraryMediaItem(string theTitle, string thePublisher, int theCopyrightYear,
+            int theLoanPeriod, string theCallNumber, double theDuration) :
+            base(theTitle, thePublisher, theCopyrightYear, theLoanPeriod, theCallNumber)
         {
-            Title = _title;
-            Publisher = _publisher;
-            CopyrightYear = _copyrightYear;
-            LoanPeriod = _loanPeriod;
-            CallNumber = _callNumber;
             Duration = theDuration;
-            Medium = theMedium;
         }
-        // Precondition: none
-        // Postcondition: gets and sets the length for the media items
+
+        // Abstract property header
+        public abstract MediaType Medium
+        {
+            // Precondition:  None
+            // Postcondition: The medium has been returned
+            get;
+
+            // Precondition:  Varies - See concrete implementation
+            // Postcondition: The medium has been set to the specified value
+            set;
+        }
+
         public double Duration
         {
             // Precondition:  None
-            // Postcondition: The duration of the media items is returned
+            // Postcondition: The duration has been returned
             get
             {
-                return duration;
+                return _duration;
             }
-            // Precondition:  value must be greater than 0
-            // Postcondition: The duration is outputted or thrown
+
+            // Precondition:  value >= 0
+            // Postcondition: The duration has been set to the specified value
             set
             {
                 if (value >= 0)
-                    duration = value;
+                    _duration = value;
                 else
-                    throw new ArgumentOutOfRangeException(
-                        nameof(value), value, $"{nameof(Duration)}, contains an invalid value!");
+                    throw new ArgumentOutOfRangeException($"{nameof(Duration)}", value,
+                        $"{nameof(Duration)} must be >= 0");
             }
         }
-        // Precondition: none
-        // Postcondition: gets and sets the type of medium
-        public abstract MediaType Medium { get; set;}
 
-        //Precondition: none
-        //Postcondition: Puts the data in a string
+        // Precondition:  None
+        // Postcondition: A string is returned presenting the libary item's data on
+        //                separate lines
         public override string ToString()
         {
             string NL = Environment.NewLine; // NewLine shortcut
 
-            return $"Duration: {Duration}{NL}Media Type: {Medium}";
+            return $"Duration: {Duration}{NL}Medium: {Medium}{NL}{base.ToString()}";
         }
-    } 
+    }
 }

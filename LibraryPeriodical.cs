@@ -1,89 +1,90 @@
-﻿// Grading ID: T6181
-// Program 1A
-// 2/12/20
+﻿// Program 1A
 // CIS 200-01
+// Due: 2/13/2020
+// By: Andrew L. Wright (Students use Grading ID)
+
+// File: LibraryPeriodical.cs
+// This file creates an abstract LibraryPeriodical class that adds
+// volume and number.
+// LibraryPeriodical IS-A LibraryItem
+
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
-namespace Prog1A
+namespace LibraryItems
 {
-    class LibraryPeriodical : LibraryItem
+    [Serializable]
+    public abstract class LibraryPeriodical : LibraryItem
     {
-        public string Title;
-        public string Publisher;
-        public new int CopyrightYear;
-        public new int LoanPeriod;
-        public string CallNumber;
-        public int _Volume;
-        public int _Number;
-        // Precondition:  none
-        // Postcondition: The journal has been initialized with the following
-        //               7 parameters
-        public LibraryPeriodical(string _title, string _publisher, int _copyrightYear, int _loanPeriod
-              , string _callNumber, int theVolume, int theNumber)
-            :base(_title, _publisher, _callNumber, _copyrightYear, _loanPeriod)
+        private int _volume; // The periodical's volume
+        private int _number; // The periodical's number
+
+        // Precondition:  theCopyrightYear >= 0, theLoanPeriod >= 0, theVolume >= 1,
+        //                theNumber >= 1
+        //                theTitle and theCallNumber must not be null or empty
+        // Postcondition: The library periodical has been initialized with the specified
+        //                values for title, publisher, copyright year, loan period, 
+        //                call number, volume, and number. The item is not checked out.
+        public LibraryPeriodical(string theTitle, string thePublisher, int theCopyrightYear,
+            int theLoanPeriod, string theCallNumber, int theVolume, int theNumber) :
+            base(theTitle, thePublisher, theCopyrightYear, theLoanPeriod, theCallNumber)
         {
             Volume = theVolume;
             Number = theNumber;
         }
-        // Precondition: none
-        // Postcondition: gets and sets the value for the volume level
+
         public int Volume
         {
             // Precondition:  None
-            // Postcondition: The volume level is returned
+            // Postcondition: The volume has been returned
             get
             {
-                return _Volume;
+                return _volume;
             }
-            // Precondition:  value must be greater than 1
-            // Postcondition: The volume level is outputted or thrown
+
+            // Precondition:  value >= 1
+            // Postcondition: The volume has been set to the specified value
             set
             {
                 if (value >= 1)
-                    Volume = value;
+                    _volume = value;
                 else
-                    throw new ArgumentOutOfRangeException(
-                        nameof(value), value, $"{nameof(Volume)}, contains an invalid value!");
+                    throw new ArgumentOutOfRangeException($"{nameof(Volume)}", value,
+                        $"{nameof(Volume)} must be >= 1");
             }
         }
-        // Precondition: none
-        // Postcondition: gets and sets the value for the periodical number
+
         public int Number
         {
             // Precondition:  None
-            // Postcondition: The number value is returned
+            // Postcondition: The number has been returned
             get
             {
-                return _Number;
+                return _number;
             }
-            // Precondition:  value must be greater than 1
-            // Postcondition: The number is outputted or thrown
+
+            // Precondition:  value >= 1
+            // Postcondition: The number has been set to the specified value
             set
             {
                 if (value >= 1)
-                    Number = value;
+                    _number = value;
                 else
-                    throw new ArgumentOutOfRangeException(
-                        nameof(value), value, $"{nameof(Number)}, contains an invalid value!");
+                    throw new ArgumentOutOfRangeException($"{nameof(Number)}", value,
+                        $"{nameof(Number)} must be >= 1");
             }
         }
-        //Precondition: none
-        //Postcondition: Outputs the late fee for the periodicals
-        public override void CalcLateFee()
-        {
 
-        }
-
-        //Precondition: none
-        //Postcondition: Puts the data in a string
+        // Precondition:  None
+        // Postcondition: A string is returned presenting the libary item's data on
+        //                separate lines
         public override string ToString()
         {
             string NL = Environment.NewLine; // NewLine shortcut
 
-            return $"Volume: {Volume}{NL}Number: {Number}";
-
+            return $"Volume: {Volume}{NL}Number: {Number}{NL}{base.ToString()}";
         }
     }
 }

@@ -1,148 +1,171 @@
-﻿// Grading ID: T6181
-// Program 1A
-// 2/12/20
+﻿// Program 1A
 // CIS 200-01
+// Due: 2/13/2020
+// By: Andrew L. Wright (Students use Grading ID)
+
+// File: LibraryItem.cs
+// This file creates an abstract LibraryItem class that will serve
+// as the base class of a hierarchy of library items that keep
+// track of common information and can be checked out by
+// LibraryPatrons.
+// LibraryItem HAS-A LibraryPatron (when the item is checked out)
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
-namespace Prog1A
+namespace LibraryItems
 {
+    [Serializable]
     public abstract class LibraryItem
     {
-        private string Title;
-        private string Publisher;
-        private string CallNumber;
-        private int _CopyrightYear;
-        private int _LoanPeriod;
-        // Precondition:  none
-        // Postcondition: The items have been initialized with the following
-        //               5 parameters 
-        public LibraryItem(string _title, string _publisher, string _callNumber, 
-            int _copyrightYear, int _loanPeriod)
+        private string _title;      // The book's title
+        private string _publisher;  // The book's publisher
+        private int _copyrightYear; // The book's year of copyright
+        private string _callNumber; // The book's call number in the library
+        private int _loanPeriod;    // The item's loan period
+
+        // Precondition:  theCopyrightYear >= 0, theLoanPeriod >= 0
+        //                theTitle and theCallNumber must not be null or empty
+        // Postcondition: The library item has been initialized with the specified
+        //                values for title, publisher, copyright year, loan period and
+        //                call number. The item is not checked out.
+        public LibraryItem(string theTitle, string thePublisher, int theCopyrightYear,
+            int theLoanPeriod, string theCallNumber)
         {
-            BookTitle = _title;
-            BookPublisher = _publisher;
-            CallNum = _callNumber;
-            CopyrightYear = _copyrightYear;
-            LoanPeriod = _loanPeriod;
-            
+            Title = theTitle;
+            Publisher = thePublisher;
+            CopyrightYear = theCopyrightYear;
+            LoanPeriod = theLoanPeriod;
+            CallNumber = theCallNumber;
+
+            ReturnToShelf(); // Make sure item is not checked out
         }
-        // Precondition: none
-        // Postcondition: gets and sets the value for the book title
-        public string BookTitle
+
+        public string Title
         {
             // Precondition:  None
-            // Postcondition: The title name is returned
+            // Postcondition: The title has been returned
             get
             {
-                return Title;
+                return _title;
             }
-            // Precondition:  value must be not null or have white space
-            // Postcondition: The title name is outputted or thrown
+
+            // Precondition:  value must not be null or empty
+            // Postcondition: The title has been set to the specified value
             set
             {
                 if (string.IsNullOrWhiteSpace(value)) // IsNullOrWhiteSpace includes tests for null, empty, or all whitespace
-                    throw new ArgumentOutOfRangeException($"{nameof(BookTitle)}", value,
-                        $"{nameof(BookTitle)} must not be null or empty");
+                    throw new ArgumentOutOfRangeException($"{nameof(Title)}", value,
+                        $"{nameof(Title)} must not be null or empty");
                 else
-                    Title = value.Trim();
+                    _title = value.Trim();
             }
         }
-        // Precondition: none
-        // Postcondition: gets and sets the value for the book publisher
-        public string BookPublisher
+
+        public string Publisher
         {
             // Precondition:  None
-            // Postcondition: The publisher name is returned
+            // Postcondition: The publisher has been returned
             get
             {
-                return Publisher;
+                return _publisher;
             }
-            // Precondition:  value must be not null or have white space
-            // Postcondition: The title name is outputted or thrown
-            set
-            {
-                Publisher = (value == null ? string.Empty : value.Trim());
-            }
-        }
-        // Precondition: none
-        // Postcondition: gets and sets the value for the call number
-        public string CallNum
-        {
+
             // Precondition:  None
-            // Postcondition: The call number is returned
-            get
-            {
-                return CallNumber;
-            }
-            // Precondition:  value must be not null or have white space
-            // Postcondition: The call number is outputted or thrown
+            // Postcondition: The publisher has been set to the specified value
             set
             {
-                if (string.IsNullOrWhiteSpace(value)) // IsNullOrWhiteSpace includes tests for null, empty, or all whitespace
-                    throw new ArgumentOutOfRangeException($"{nameof(CallNum)}", value,
-                        $"{nameof(CallNum)} must not be null or empty");
-                else
-                    CallNumber = value.Trim();
+                // Since empty publisher is OK, just change null to empty string
+                _publisher = (value == null ? string.Empty : value.Trim());
             }
         }
-        // Precondition: none
-        // Postcondition: gets and sets the value for the copyright year
+
         public int CopyrightYear
         {
             // Precondition:  None
-            // Postcondition: The copyright year is returned
+            // Postcondition: The copyright year has been returned
             get
             {
-                return _CopyrightYear;
+                return _copyrightYear;
             }
-            // Precondition:  value must be greater than 0
-            // Postcondition: The year is outputted or thrown
+
+            // Precondition:  value >= 0
+            // Postcondition: The copyright year has been set to the specified value
             set
             {
                 if (value >= 0)
-                    _CopyrightYear = value;
+                    _copyrightYear = value;
                 else
                     throw new ArgumentOutOfRangeException($"{nameof(CopyrightYear)}", value,
                         $"{nameof(CopyrightYear)} must be >= 0");
             }
-        
         }
-        // Precondition: none
-        // Postcondition: gets and sets the value for the loan period
+
+        public string CallNumber
+        {
+            // Precondition:  None
+            // Postcondition: The call number has been returned
+            get
+            {
+                return _callNumber;
+            }
+
+            // Precondition:  value must not be null or empty
+            // Postcondition: The call number has been set to the specified value
+            set
+            {
+                if (string.IsNullOrWhiteSpace(value)) // IsNullOrWhiteSpace includes tests for null, empty, or all whitespace
+                    throw new ArgumentOutOfRangeException($"{nameof(CallNumber)}", value,
+                        $"{nameof(CallNumber)} must not be null or empty");
+                else
+                    _callNumber = value.Trim();
+            }
+        }
+
         public int LoanPeriod
         {
             // Precondition:  None
-            // Postcondition: The loan period is returned
+            // Postcondition: The loan period has been returned
             get
             {
-                return _LoanPeriod;
+                return _loanPeriod;
             }
-            // Precondition:  value must be greater than 0
-            // Postcondition: The period is outputted or thrown
+
+            // Precondition:  value >= 0
+            // Postcondition: The loan period has been set to the specified value
             set
             {
                 if (value >= 0)
-                    _LoanPeriod = value;
+                    _loanPeriod = value;
                 else
                     throw new ArgumentOutOfRangeException($"{nameof(LoanPeriod)}", value,
                         $"{nameof(LoanPeriod)} must be >= 0");
             }
         }
-        public string Patron
+        // Create HAS-A
+        public LibraryPatron Patron
         {
             // Precondition:  None
             // Postcondition: The book's patron has been returned
-            get;  // Auto-implement is fine
+            get; // Auto-implement is fine
 
             // Helper
             // Precondition:  None
             // Postcondition: The book's patron has been set to the specified value
-             set; // Auto-implement is fine 
+            private set; // Auto-implement is fine 
         }
-        public void CheckOut(string thePatron)
+
+        // Abstract method header
+        // Precondition:  daysLate >= 0
+        // Postcondition: The fee for returning the item the specified days late
+        //                has been returned
+        public abstract decimal CalcLateFee(int daysLate);
+
+        // Precondition:  thePatron != null
+        // Postcondition: The book is checked out by the specified patron
+        public void CheckOut(LibraryPatron thePatron)
         {
             if (thePatron != null)
                 Patron = thePatron;
@@ -165,25 +188,32 @@ namespace Prog1A
             return Patron != null; // The item is checked out if there is a Patron
         }
 
-        //Precondition: none
-        //Postcondition: abstract method, so none in this class
-        public abstract void CalcLateFee();
-
-        //Precondition: none
-        //Postcondition: Puts the data in a string
+        // Precondition:  None
+        // Postcondition: A string is returned presenting the libary item's data on
+        //                separate lines
         public override string ToString()
         {
             string NL = Environment.NewLine; // NewLine shortcut
+            string checkedOutBy; // Holds checked out message
 
-            return $"Title: {Title}{NL}Publisher: {Publisher} Call Number: {CallNum}" +
-                $"Copyright Year:{CopyrightYear} Loan Period: {LoanPeriod}";
+            if (IsCheckedOut())
+                checkedOutBy = $"Checked Out By: {NL}{Patron}";
+            else
+                checkedOutBy = "Not Checked Out";
+
+            return $"Title: {Title}{NL}Publisher: {Publisher}{NL}" +
+                $"Copyright: {CopyrightYear}{NL}Loan Period: {LoanPeriod}{NL}" +
+                $"Call Number: {CallNumber}{NL}{checkedOutBy}";
         }
 
-
+        // HELPER METHOD - for derived classes
+        // Precondition:  daysLate >= 0
+        // Postcondition: If daysLate invalid, throw exception
+        protected void ValidateDaysLate(int daysLate)
+        {
+            if (daysLate < 0)
+                throw new ArgumentOutOfRangeException($"{nameof(daysLate)}", daysLate,
+                    $"{nameof(daysLate)} must be >= 0");
+        }
     }
-
 }
-
-    
-    
-

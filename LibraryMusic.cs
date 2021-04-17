@@ -1,121 +1,134 @@
-﻿// Grading ID: T6181
-// Program 1A
-// 2/12/20
+﻿// Program 1A
 // CIS 200-01
+// Due: 2/13/2020
+// By: Andrew L. Wright (Students use Grading ID)
+
+// File: LibraryMusic.cs
+// This file creates a concrete LibraryMusic class that adds
+// artist and number of tracks.
+// LibraryMusic IS-A LibraryMediaItem
+
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
-namespace Prog1A
+namespace LibraryItems
 {
-    class LibraryMusic : LibraryMediaItem
+    [Serializable]
+    public class LibraryMusic : LibraryMediaItem
     {
-        const double musicFee = 0.50;
-        public new string Title;
-        public new string Publisher;
-        public new int CopyrightYear;
-        public new int LoanPeriod;
-        public new string CallNumber;
-        public new double Duration;
-        public string _Artist;
-        public LibraryMediaItem.MediaType _Medium;
-        public int TotalTracks;
+        public const decimal DAILYLATEFEE = 0.50m; // Music's daily late fee
+        public const decimal MAXFEE = 20.00m;      // Max late fee
 
-        // Precondition:  none
-        // Postcondition: The music has been initialized with the following
-        //                7 parameters
-        public LibraryMusic(string _title, string _publisher, int _copyrightYear, int _loanPeriod
-           , string _callNumber, double theDuration, string theArtist,
-           LibraryMediaItem.MediaType theMedium, int theTotalTracks):
-            base(_title, _publisher, _copyrightYear, _loanPeriod, _callNumber, theDuration, theMedium) // Constructor with 7 parameters and a base class
+        private string _artist; // Music's artist
+        private int _numTracks; // Music's number of tracks
+
+        // Precondition:  theCopyrightYear >= 0, theLoanPeriod >= 0, theDuration >= 0,
+        //                theNumTracks >= 1
+        //                theTitle and theCallNumber must not be null or empty
+        // Postcondition: The movie has been initialized with the specified
+        //                values for title, publisher, copyright year, loan period, 
+        //                call number, duration, director, medium, and rating. The
+        //                item is not checked out.
+        public LibraryMusic(string theTitle, string thePublisher, int theCopyrightYear,
+            int theLoanPeriod, string theCallNumber, double theDuration, string theArtist,
+            MediaType theMedium, int theNumTracks) :
+            base(theTitle, thePublisher, theCopyrightYear, theLoanPeriod, theCallNumber, theDuration)
         {
             Artist = theArtist;
             Medium = theMedium;
-            TrackCount = theTotalTracks;
+            NumTracks = theNumTracks;
         }
-        // Precondition: none
-        // Postcondition: gets and sets the value for the Artist's name
+
         public string Artist
         {
             // Precondition:  None
-            // Postcondition: The artist's name has been returned
+            // Postcondition: The artist has been returned
             get
             {
-                return _Artist;
+                return _artist;
             }
+
             // Precondition:  value must not be null or empty
-            // Postcondition: The author's name has been set to the specified value
+            // Postcondition: The artist has been set to the specified value
             set
             {
                 if (string.IsNullOrWhiteSpace(value)) // IsNullOrWhiteSpace includes tests for null, empty, or all whitespace
                     throw new ArgumentOutOfRangeException($"{nameof(Artist)}", value,
-                        $"{nameof(Artist)} must not be null or empty");
+                       $"{nameof(Artist)} must not be null or empty");
                 else
-                    _Artist = value.Trim();
+                    _artist = value.Trim();
             }
         }
-        // Precondition: none
-        // Postcondition: gets and sets the value for the type of medium
-        public override LibraryMediaItem.MediaType Medium
+
+        public int NumTracks
         {
             // Precondition:  None
-            // Postcondition: The type of medium is returned
+            // Postcondition: The number of tracks has been returned
             get
             {
-                return _Medium;
+                return _numTracks;
             }
-            // Precondition:  value must equal CD, SACD, or VINYL
-            // Postcondition: The type of medium is outputted or thrown
-            set
-            {
-                if (value == MediaType.CD)
-                    _Medium = value;
-                else if (value == MediaType.SACD)
-                    _Medium = value;
-                else if (value == MediaType.VINYL)
-                    _Medium = value;
-                else
-                    throw new ArgumentOutOfRangeException(
-                                nameof(value), value, $"{nameof(Medium)}, contains an invalid value!");
-            }
-        }
-        // Precondition: none
-        // Postcondition: gets and sets the value for the total tracks
-        public int TrackCount
-        {
-            // Precondition:  None
-            // Postcondition: The total tracks is returned
-            get
-            {
-                return TotalTracks;
-            }
-            // Precondition:  value must be greater than 1
-            // Postcondition: The track count is outputted or thrown
+
+            // Precondition:  value >= 1
+            // Postcondition: The number of tracks has been set to the specified value
             set
             {
                 if (value >= 1)
-                    TotalTracks = value;
+                    _numTracks = value;
                 else
-                    throw new ArgumentOutOfRangeException(
-                        nameof(value), value, $"{nameof(TrackCount)}, contains an invalid value!");
+                    throw new ArgumentOutOfRangeException($"{nameof(NumTracks)}", value,
+                        $"{nameof(NumTracks)} must be >= 1");
             }
         }
-        //Precondition: none
-        //Postcondition: Outputs the late fee for the music
-        public override void CalcLateFee()
+
+        public override MediaType Medium
         {
-            Console.WriteLine($"Fee for music is {musicFee} per day");
+            // Precondition:  None
+            // Postcondition: The medium has been returned
+            get
+            {
+                return _medium;
+            }
+
+            // Precondition:  value from { CD, SACD, VINYL }
+            // Postcondition: The medium has been set to the specified value
+            set
+            {
+                if (value == MediaType.CD || value == MediaType.SACD ||
+                    value == MediaType.VINYL)
+                    _medium = value;
+                else
+                    throw new ArgumentOutOfRangeException($"{nameof(Medium)}",
+                        value, $"{nameof(Medium)} must be from {{CD, SACD, VINYL}}");
+            }
         }
-        //Precondition: none
-        //Postcondition: Puts the data in a string
+
+        // Precondition:  daysLate >= 0
+        // Postcondition: The fee for returning the item the specified days late
+        //                has been returned
+        public override decimal CalcLateFee(int daysLate)
+        {
+            decimal lateFee = 0.0M; // Late music fee
+
+            ValidateDaysLate(daysLate);
+
+            lateFee = daysLate * DAILYLATEFEE;
+
+            // Make sure to cap the late fee
+            return Math.Min(lateFee, MAXFEE);
+        }
+
+        // Precondition:  None
+        // Postcondition: A string is returned presenting the libary item's data on
+        //                separate lines
         public override string ToString()
         {
             string NL = Environment.NewLine; // NewLine shortcut
 
-            return $"Total tracks: {TrackCount}{NL}Media Type: {Medium} Artist: {Artist}";
-
+            return $"{nameof(LibraryMusic)}{NL}Artist: {Artist}{NL}Num Tracks: {NumTracks}{NL}" +
+                $"{base.ToString()}";
         }
-
     }
 }
-    
