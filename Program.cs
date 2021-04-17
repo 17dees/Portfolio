@@ -1,21 +1,57 @@
-﻿using System;
+﻿// Grading ID: J7186
+// Due Date: 10/20/2019
+// Lab 5 
+// CIS 199-01
+// This lab displays a pattern of stars
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Windows.Forms;
+using System.Text;
+using System.Threading.Tasks;
 
-namespace Prog3
+namespace Program5
 {
-    static class Program
+    class Program
     {
-        /// <summary>
-        /// The main entry point for the application.
-        /// </summary>
-        [STAThread]
-        static void Main()
+        static void Main(string[] args)
         {
-            Application.EnableVisualStyles();
-            Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new RegForm());
+            const int MAX_ROWS = 10;
+
+            Console.WriteLine("Pattern A"); // This displays the label for the group of stars
+            for (int row = 1; row <= MAX_ROWS; row++) // Sets the parameters for the pattern
+            {
+                for (int star = 1; star <= row; star++) // Sets the parameters for the pattern
+                    Console.Write("*"); // Displays the output for the stars
+                Console.WriteLine();
+
+            }
+            Console.WriteLine("Pattern B"); // This displays the label for the group of stars
+            for (int row = 1; row <= MAX_ROWS; row++) // Sets the parameters for the pattern
+            {
+                for (int star = 10; star >= row; star--) // Sets the parameters for the pattern
+                    Console.Write("*"); // Displays the output for the stars
+                Console.WriteLine();
+            }
+            Console.WriteLine("Pattern C"); // This displays the label for the group of stars
+
+            for (int row = 1; row <= MAX_ROWS; row++) // Sets the parameters for the pattern
+            {
+                for (int spaces = 2; spaces <= row; spaces++) // Sets the parameters for the pattern
+                    Console.Write(" "); // Displays the output for the spaces
+
+                for (int star = 10; star >= row; star--) // Sets the parameters for the pattern
+                    Console.Write("*"); // Displays the output for the stars
+                Console.WriteLine();
+            }
+            for (int row =1; row <= MAX_ROWS; row++) // Sets the parameters for the pattern
+            {
+                for (int spaces = 1; spaces <= MAX_ROWS - row; spaces++) // Sets the parameters for the pattern
+                    Console.Write(" "); // Displays the output for the spaces
+                for (int star = 1; star <= row; star++) // Sets the parameters for the pattern
+                    Console.Write("*"); // Displays the output for the stars
+                Console.WriteLine();
+            }
         }
+
     }
 }
