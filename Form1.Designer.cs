@@ -1,6 +1,6 @@
-﻿namespace Lab_4
+﻿namespace Lab7
 {
-    partial class LabThreeForm
+    partial class Lab7
     {
         /// <summary>
         /// Required designer variable.
@@ -28,129 +28,109 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.AcceptedButton = new System.Windows.Forms.Button();
-            this.GPALAbel = new System.Windows.Forms.Label();
-            this.AdmissionTSLabel = new System.Windows.Forms.Label();
-            this.AcceptLabel = new System.Windows.Forms.Label();
-            this.RejectLabel = new System.Windows.Forms.Label();
-            this.ResultLabel = new System.Windows.Forms.Label();
-            this.GPAInput = new System.Windows.Forms.TextBox();
-            this.ScoreInput = new System.Windows.Forms.TextBox();
-            this.AccRej = new System.Windows.Forms.TextBox();
-            this.NumAccepted = new System.Windows.Forms.TextBox();
-            this.NumReject = new System.Windows.Forms.TextBox();
+            this.lblFutureValue = new System.Windows.Forms.Label();
+            this.lblRate = new System.Windows.Forms.Label();
+            this.lblYear = new System.Windows.Forms.Label();
+            this.lblPresentValue = new System.Windows.Forms.Label();
+            this.lblAnswer = new System.Windows.Forms.Label();
+            this.txtFurtureValue = new System.Windows.Forms.TextBox();
+            this.txtRate = new System.Windows.Forms.TextBox();
+            this.txtYear = new System.Windows.Forms.TextBox();
+            this.btnEnter = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
-            // AcceptedButton
+            // lblFutureValue
             // 
-            this.AcceptedButton.Location = new System.Drawing.Point(396, 42);
-            this.AcceptedButton.Name = "AcceptedButton";
-            this.AcceptedButton.Size = new System.Drawing.Size(75, 23);
-            this.AcceptedButton.TabIndex = 0;
-            this.AcceptedButton.Text = "Accepted";
-            this.AcceptedButton.UseVisualStyleBackColor = true;
-            this.AcceptedButton.Click += new System.EventHandler(this.AcceptedButton_Click);
+            this.lblFutureValue.AutoSize = true;
+            this.lblFutureValue.Location = new System.Drawing.Point(27, 24);
+            this.lblFutureValue.Name = "lblFutureValue";
+            this.lblFutureValue.Size = new System.Drawing.Size(73, 13);
+            this.lblFutureValue.TabIndex = 0;
+            this.lblFutureValue.Text = "Furture Value:";
             // 
-            // GPALAbel
+            // lblRate
             // 
-            this.GPALAbel.AutoSize = true;
-            this.GPALAbel.Location = new System.Drawing.Point(91, 28);
-            this.GPALAbel.Name = "GPALAbel";
-            this.GPALAbel.Size = new System.Drawing.Size(32, 13);
-            this.GPALAbel.TabIndex = 1;
-            this.GPALAbel.Text = "GPA:";
-            this.GPALAbel.Click += new System.EventHandler(this.GPALAbel_Click);
+            this.lblRate.AutoSize = true;
+            this.lblRate.Location = new System.Drawing.Point(27, 67);
+            this.lblRate.Name = "lblRate";
+            this.lblRate.Size = new System.Drawing.Size(107, 13);
+            this.lblRate.TabIndex = 1;
+            this.lblRate.Text = "Annual Interest Rate:";
             // 
-            // AdmissionTSLabel
+            // lblYear
             // 
-            this.AdmissionTSLabel.AutoSize = true;
-            this.AdmissionTSLabel.Location = new System.Drawing.Point(66, 84);
-            this.AdmissionTSLabel.Name = "AdmissionTSLabel";
-            this.AdmissionTSLabel.Size = new System.Drawing.Size(112, 13);
-            this.AdmissionTSLabel.TabIndex = 2;
-            this.AdmissionTSLabel.Text = "Admission Test Score:";
+            this.lblYear.AutoSize = true;
+            this.lblYear.Location = new System.Drawing.Point(27, 108);
+            this.lblYear.Name = "lblYear";
+            this.lblYear.Size = new System.Drawing.Size(69, 13);
+            this.lblYear.TabIndex = 2;
+            this.lblYear.Text = "No. of Years:";
             // 
-            // AcceptLabel
+            // lblPresentValue
             // 
-            this.AcceptLabel.AutoSize = true;
-            this.AcceptLabel.Location = new System.Drawing.Point(91, 194);
-            this.AcceptLabel.Name = "AcceptLabel";
-            this.AcceptLabel.Size = new System.Drawing.Size(44, 13);
-            this.AcceptLabel.TabIndex = 3;
-            this.AcceptLabel.Text = "Accept:";
+            this.lblPresentValue.AutoSize = true;
+            this.lblPresentValue.Location = new System.Drawing.Point(27, 172);
+            this.lblPresentValue.Name = "lblPresentValue";
+            this.lblPresentValue.Size = new System.Drawing.Size(76, 13);
+            this.lblPresentValue.TabIndex = 3;
+            this.lblPresentValue.Text = "Present Value:";
             // 
-            // RejectLabel
+            // lblAnswer
             // 
-            this.RejectLabel.AutoSize = true;
-            this.RejectLabel.Location = new System.Drawing.Point(91, 256);
-            this.RejectLabel.Name = "RejectLabel";
-            this.RejectLabel.Size = new System.Drawing.Size(41, 13);
-            this.RejectLabel.TabIndex = 5;
-            this.RejectLabel.Text = "Reject:";
+            this.lblAnswer.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.lblAnswer.Location = new System.Drawing.Point(154, 171);
+            this.lblAnswer.Name = "lblAnswer";
+            this.lblAnswer.Size = new System.Drawing.Size(100, 23);
+            this.lblAnswer.TabIndex = 4;
             // 
-            // ResultLabel
+            // txtFurtureValue
             // 
-            this.ResultLabel.AutoSize = true;
-            this.ResultLabel.Location = new System.Drawing.Point(91, 128);
-            this.ResultLabel.Name = "ResultLabel";
-            this.ResultLabel.Size = new System.Drawing.Size(40, 13);
-            this.ResultLabel.TabIndex = 7;
-            this.ResultLabel.Text = "Result:";
+            this.txtFurtureValue.Location = new System.Drawing.Point(154, 21);
+            this.txtFurtureValue.Name = "txtFurtureValue";
+            this.txtFurtureValue.Size = new System.Drawing.Size(100, 20);
+            this.txtFurtureValue.TabIndex = 5;
             // 
-            // GPAInput
+            // txtRate
             // 
-            this.GPAInput.Location = new System.Drawing.Point(223, 21);
-            this.GPAInput.Name = "GPAInput";
-            this.GPAInput.Size = new System.Drawing.Size(100, 20);
-            this.GPAInput.TabIndex = 8;
+            this.txtRate.Location = new System.Drawing.Point(154, 64);
+            this.txtRate.Name = "txtRate";
+            this.txtRate.Size = new System.Drawing.Size(100, 20);
+            this.txtRate.TabIndex = 6;
             // 
-            // ScoreInput
+            // txtYear
             // 
-            this.ScoreInput.Location = new System.Drawing.Point(223, 81);
-            this.ScoreInput.Name = "ScoreInput";
-            this.ScoreInput.Size = new System.Drawing.Size(100, 20);
-            this.ScoreInput.TabIndex = 9;
+            this.txtYear.Location = new System.Drawing.Point(154, 105);
+            this.txtYear.Name = "txtYear";
+            this.txtYear.Size = new System.Drawing.Size(100, 20);
+            this.txtYear.TabIndex = 7;
             // 
-            // AccRej
+            // btnEnter
             // 
-            this.AccRej.Location = new System.Drawing.Point(223, 125);
-            this.AccRej.Name = "AccRej";
-            this.AccRej.Size = new System.Drawing.Size(100, 20);
-            this.AccRej.TabIndex = 10;
+            this.btnEnter.Location = new System.Drawing.Point(103, 213);
+            this.btnEnter.Name = "btnEnter";
+            this.btnEnter.Size = new System.Drawing.Size(75, 23);
+            this.btnEnter.TabIndex = 8;
+            this.btnEnter.Text = "Calculate";
+            this.btnEnter.UseVisualStyleBackColor = true;
+            this.btnEnter.Click += new System.EventHandler(this.BtnEnter_Click);
             // 
-            // NumAccepted
+            // Lab7
             // 
-            this.NumAccepted.Location = new System.Drawing.Point(223, 186);
-            this.NumAccepted.Name = "NumAccepted";
-            this.NumAccepted.Size = new System.Drawing.Size(100, 20);
-            this.NumAccepted.TabIndex = 11;
-            // 
-            // NumReject
-            // 
-            this.NumReject.Location = new System.Drawing.Point(223, 249);
-            this.NumReject.Name = "NumReject";
-            this.NumReject.Size = new System.Drawing.Size(100, 20);
-            this.NumReject.TabIndex = 12;
-            // 
-            // LabThreeForm
-            // 
+            this.AcceptButton = this.btnEnter;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(520, 397);
-            this.Controls.Add(this.NumReject);
-            this.Controls.Add(this.NumAccepted);
-            this.Controls.Add(this.AccRej);
-            this.Controls.Add(this.ScoreInput);
-            this.Controls.Add(this.GPAInput);
-            this.Controls.Add(this.ResultLabel);
-            this.Controls.Add(this.RejectLabel);
-            this.Controls.Add(this.AcceptLabel);
-            this.Controls.Add(this.AdmissionTSLabel);
-            this.Controls.Add(this.GPALAbel);
-            this.Controls.Add(this.AcceptedButton);
-            this.Name = "LabThreeForm";
-            this.Text = "Lab 3";
-            this.Load += new System.EventHandler(this.Form1_Load);
+            this.ClientSize = new System.Drawing.Size(281, 245);
+            this.Controls.Add(this.btnEnter);
+            this.Controls.Add(this.txtYear);
+            this.Controls.Add(this.txtRate);
+            this.Controls.Add(this.txtFurtureValue);
+            this.Controls.Add(this.lblAnswer);
+            this.Controls.Add(this.lblPresentValue);
+            this.Controls.Add(this.lblYear);
+            this.Controls.Add(this.lblRate);
+            this.Controls.Add(this.lblFutureValue);
+            this.Name = "Lab7";
+            this.Text = "Lab 7";
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -158,17 +138,15 @@
 
         #endregion
 
-        private System.Windows.Forms.Button AcceptedButton;
-        private System.Windows.Forms.Label GPALAbel;
-        private System.Windows.Forms.Label AdmissionTSLabel;
-        private System.Windows.Forms.Label AcceptLabel;
-        private System.Windows.Forms.Label RejectLabel;
-        private System.Windows.Forms.Label ResultLabel;
-        private System.Windows.Forms.TextBox GPAInput;
-        private System.Windows.Forms.TextBox ScoreInput;
-        private System.Windows.Forms.TextBox AccRej;
-        private System.Windows.Forms.TextBox NumAccepted;
-        private System.Windows.Forms.TextBox NumReject;
+        private System.Windows.Forms.Label lblFutureValue;
+        private System.Windows.Forms.Label lblRate;
+        private System.Windows.Forms.Label lblYear;
+        private System.Windows.Forms.Label lblPresentValue;
+        private System.Windows.Forms.Label lblAnswer;
+        private System.Windows.Forms.TextBox txtFurtureValue;
+        private System.Windows.Forms.TextBox txtRate;
+        private System.Windows.Forms.TextBox txtYear;
+        private System.Windows.Forms.Button btnEnter;
     }
 }
 

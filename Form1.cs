@@ -1,7 +1,8 @@
-﻿//Grading Id:J1619
-//Lab 4
-//Due:9-29-19
-//Course:CIS 199-01
+﻿//Grading ID: J8143
+//Lab 7
+//Due: Sunday Novmber 9, 2019
+//CIS 199-01
+//This lab tells you how much you have to invest today to get the amount of money you want
 
 using System;
 using System.Collections.Generic;
@@ -13,89 +14,41 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace Lab_4
+namespace Lab7
 {
-    public partial class LabThreeForm : Form
+    public partial class Lab7 : Form
     {
-        int acceptNum;   //holds the number of accpted
-        private int rejectNum;   //holds the number of reject
-
-        public int AccNum { get; private set; }
-        public object AccRej { get; private set; }
-        public int RejNum { get; private set; }
-
-        public LabThreeForm()
+        public Lab7()
         {
             InitializeComponent();
         }
 
-        private void Form1_Load(object sender, EventArgs e)
+        //What happens when  you click the calculate button
+        private void BtnEnter_Click(object sender, EventArgs e)
         {
-
-        }
-
-        private void GPALAbel_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void AcceptedButton_Click(object sender, EventArgs e)
-        {
-            string accNum = "Accepted",
-                Rej = "Rejected";
-            //Valus for testing
-            const int GpaMin = 0;
-            const int GpaMax = 4;
-            const int scoreMin = 0;
-            const int ScoreMax = 100;
-            const int GpaHigh = 3;
-            const int ScoreLow = 60;
-            const int ScoreHigh = 80;
-
-            double Gpa,
-                   Score;
+            double Future;  //Holds what the user enters for future value
+            double Rate;    //Holds what the user enters for the Rate
+            int Year;       //Holds what the user enters for years
 
 
-            if(double.TryParse(GPAInput.Text, out Gpa) && Gpa >= GpaMin && Gpa <= GpaMax) //Test the Gpa in between 0 and 4
-                if(double.TryParse(ScoreInput.Text, out Score) &&Score >= scoreMin && Score <= ScoreMax) //Test the score in between0 and 100
-                {
-                    if(Gpa >= GpaHigh)    //test if Gpa is >= the highest gpa allows lower test scores
-                    {
-                        if(Score >= ScoreLow)
-                        {
-
-                            AcceptRejectRule.Text = acc; //Write the accepted text in the accepted box
-                            AccNum++;    //adds 1 count in the stored in the int value in the accNum
-
-                        }
-                        else
-                        {
-                            AccRej.Text = Rej;    //Write rejected text in the rejected box
-                                RejNum++;     //Adds 1 count in the rejected box
-                        }
-                    }
-                    else if(Score >= ScoreHigh)
-                    {
-                        .Text = Rej;  //Write rejected in the Rej string variable
-                        RejNum++;                     // Add 1 count in stored int value in the accNum
-                    }
-                    else
-                    {
-                        AcceptRejectRule.Text = Rej;
-                        RejNum++;
-                    }
-                }
-            else
-                {
-                    MessageBox.Show("Please enter a valid Score");
-                }
-            else
+            //If to make sure TryPArse works
+            if(double.TryParse(txtFurtureValue.Text, out Future) == true && double.TryParse(txtRate.Text, out Rate) == true && int.TryParse(txtYear.Text, out Year) == true)
             {
-                MessageBox.Show("Please enter a valid Gpa");
-            };
+                lblAnswer.Text = $"{CalcPresentValue(Future, Rate, Year):c}"; //Calling the method
+            }
+            
+            //Method to calcualte present value
+            double CalcPresentValue(double future, double rate, int year)
+            {
+                double answer;          //The present value
+                double pow = 1 + rate;  //Demoinator of the formula
 
-            NumAccept.Text = AccNum.ToString("F0");
-            NumReject.Text = RejNum.ToString("F0");
+                answer = future / Math.Pow(pow, year); //Present value formula
+
+                return answer;
+            }
+
+
         }
     }
 }
