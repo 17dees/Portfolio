@@ -1,45 +1,47 @@
-﻿// Fig. 12.5: SalariedEmployee.cs
-// SalariedEmployee class that extends Employee.
+﻿// Fig. 12.8: BasePlusCommissionEmployee.cs
+// BasePlusCommissionEmployee class that extends CommissionEmployee.
 using System;
 
-public class SalariedEmployee : Employee
+public class BasePlusCommissionEmployee : CommissionEmployee
 {
-   private decimal weeklySalary;
+   private decimal baseSalary; // base salary per week
 
-   // four-parameter constructor
-   public SalariedEmployee(string firstName, string lastName,
-      string socialSecurityNumber, decimal weeklySalary)
-      : base(firstName, lastName, socialSecurityNumber)
+   // six-parameter constructor
+   public BasePlusCommissionEmployee(string firstName, string lastName,
+      string socialSecurityNumber, decimal grossSales,
+      decimal commissionRate, decimal baseSalary)
+      : base(firstName, lastName, socialSecurityNumber,
+           grossSales, commissionRate)
    {
-      WeeklySalary = weeklySalary; // validate salary via property
+      BaseSalary = baseSalary; // validates base salary
    }
 
-   // property that gets and sets salaried employee's salary
-   public decimal WeeklySalary
+   // property that gets and sets 
+   // BasePlusCommissionEmployee's base salary
+   public decimal BaseSalary
    {
       get
       {
-         return weeklySalary;
+         return baseSalary;
       }
       set
       {
          if (value < 0) // validation
          {
             throw new ArgumentOutOfRangeException(nameof(value),
-               value, $"{nameof(WeeklySalary)} must be >= 0");
+               value, $"{nameof(BaseSalary)} must be >= 0");
          }
 
-         weeklySalary = value;
+         baseSalary = value;
       }
    }
 
-   // calculate earnings; override abstract method Earnings in Employee
-   public override decimal Earnings() => WeeklySalary;
+   // calculate earnings
+   public override decimal Earnings() => BaseSalary + base.Earnings();
 
-   // return string representation of SalariedEmployee object
+   // return string representation of BasePlusCommissionEmployee
    public override string ToString() =>
-      $"salaried employee: {base.ToString()}\n" +
-      $"weekly salary: {WeeklySalary:C}";
+      $"base-salaried {base.ToString()}\nbase salary: {BaseSalary:C}";
 }
 
 

@@ -1,67 +1,40 @@
-﻿// Employee base class.
-using System;
-
-public class Employee
+﻿// Fig. 12.4: Employee.cs
+// Employee abstract base class.
+public abstract class Employee
 {
-    private string _firstName; // Employee's first name
-    private string _lastName;  // Employee's last name
-    private string _ssn;       // Employee's SSN
+   public string FirstName { get; }
+   public string LastName { get; }
+   public string SocialSecurityNumber { get; }
 
-    public string FirstName
-    {
-        // Precondition:  None
-        // Postcondition: The employee's first name is returned
-        get { return _firstName; }
+   // three-parameter constructor
+   public Employee(string firstName, string lastName,
+      string socialSecurityNumber)
+   {
+      FirstName = firstName;
+      LastName = lastName;
+      SocialSecurityNumber = socialSecurityNumber;
+   }
 
-        // Precondition:  None
-        // Postcondition: The employee's first name is set to the specified value
-        set { _firstName = value; }
-    }
+   // return string representation of Employee object, using properties
+   public override string ToString() => $"{FirstName} {LastName}\n" +
+      $"social security number: {SocialSecurityNumber}";
 
-    public string LastName
-    {
-        // Precondition:  None
-        // Postcondition: The employee's last name is returned
-        get { return _lastName; }
-
-        // Precondition:  None
-        // Postcondition: The employee's last name is set to the specified value
-        set { _lastName = value; }
-    }
-
-    public string SocialSecurityNumber
-    {
-        // Precondition:  None
-        // Postcondition: The employee's SSN is returned
-        get { return _ssn; }
-
-        // Precondition:  None
-        // Postcondition: The employee's SSN is set to the specified value
-        set { _ssn = value; }
-    }
-
-    // Precondition:  None
-    // Postcondition: The employee is constructed with the specified name and SSN
-    public Employee(string first, string last, string ssn)
-    {
-        FirstName = first;
-        LastName = last;
-        SocialSecurityNumber = ssn;
-    }
-
-    // virtual method to be overridden by derived classes
-    // Precondition:  None
-    // Postcondition: The employee's earnings are calculated and returned
-    public virtual double CalcEarnings()
-    {
-        return 0; // placeholder implementation here
-    }
-
-    // Precondition:  None
-    // Postcondition: The employee's information is returned as a formatted string
-    public override string ToString()
-    {
-        return $"{FirstName} {LastName}{Environment.NewLine}"+
-            $"social security number: {SocialSecurityNumber}";
-    }
+   // abstract method overridden by derived classes
+   public abstract decimal Earnings(); // no implementation here
 }
+
+
+/**************************************************************************
+ * (C) Copyright 1992-2017 by Deitel & Associates, Inc. and               *
+ * Pearson Education, Inc. All Rights Reserved.                           *
+ *                                                                        *
+ * DISCLAIMER: The authors and publisher of this book have used their     *
+ * best efforts in preparing the book. These efforts include the          *
+ * development, research, and testing of the theories and programs        *
+ * to determine their effectiveness. The authors and publisher make       *
+ * no warranty of any kind, expressed or implied, with regard to these    *
+ * programs or to the documentation contained in these books. The authors *
+ * and publisher shall not be liable in any event for incidental or       *
+ * consequential damages in connection with, or arising out of, the       *
+ * furnishing, performance, or use of these programs.                     *
+ **************************************************************************/

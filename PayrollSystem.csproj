@@ -10,7 +10,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>PayrollSystem</RootNamespace>
     <AssemblyName>PayrollSystem</AssemblyName>
-    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <FileUpgradeFlags>
     </FileUpgradeFlags>
@@ -50,9 +50,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CommissionEmployee.cs" />
+    <Compile Include="BasePlusCommissionEmployee.cs" />
     <Compile Include="PayrollSystemTest.cs" />
+    <Compile Include="CommissionEmployee.cs" />
     <Compile Include="HourlyEmployee.cs" />
+    <Compile Include="PieceWorkerEmployee.cs" />
     <Compile Include="SalariedEmployee.cs" />
     <Compile Include="Employee.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
